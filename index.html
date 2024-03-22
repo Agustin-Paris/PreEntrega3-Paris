@@ -12,11 +12,10 @@
     <nav class="navbar navbar-expand-lg bg-body-tertiary">
         <div class="container-fluid">
           <a class="navbar-brand" href="#">Colegio</a>
-    
-            <form class="d-flex" role="search">
-              <input class="form-control me-2" type="search" placeholder="Buscar" aria-label="Search">
-              <button class="btn btn-outline-success" type="submit">Buscar</button>
-            </form>
+          <div class="buscar-container" style="margin: 20px; text-align: center;">
+            <input type="text" id="buscarAlumno" placeholder="Buscar por ID, nombre o apellido">
+            <button id="buscarBtn">Buscar</button>
+        </div>
           </div>
         </div>
     </nav>
@@ -43,10 +42,22 @@
         </div>
 
     </section>
+    <div class="formulario-container" style="margin: 20px; ">
+      <form id="formularioAlumno">
+        <input type="text" id="id" placeholder="ID" required>
+        <input type="text" id="apellido" placeholder="Apellido" required>
+        <input type="text" id="nombre" placeholder="Nombre" required>
+        <input type="number" id="nota1" placeholder="Nota 1" required>
+        <input type="number" id="nota2" placeholder="Nota 2" required>
+        <input type="number" id="nota3" placeholder="Nota 3" required>
+        <button type="submit">Agregar Alumno</button>
+
+      </form>
+    </div>
 
 
     
-
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
     <script src="index.js" ></script>
 </body>

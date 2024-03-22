@@ -21,23 +21,21 @@ const alumnosArray = [
     new NotaAlumnos("10", "Rojas", "Marina", 9, 9, 9),
 ]
 
+
 const alumnosContainer = document.getElementsByClassName('alumnos-container')[0]; // Asegúrate de obtener el primer elemento si hay varios con la misma clase
 
 function agregarCards(alumnos) {
+ 
+    alumnosContainer.innerHTML = '';
     alumnos.forEach(alumno => {
+       
         const card = document.createElement('div');
         card.classList.add('card');
-         // Sumar las tres notas y dividirlas por 3
-         const promedio = (alumno.nota1 + alumno.nota2 + alumno.nota3) / 3;
-         if (promedio >= 7) {
-            card.style.backgroundColor = 'green';
-        } else {
-            card.style.backgroundColor = 'red';
-        }
+        const promedio = (alumno.nota1 + alumno.nota2 + alumno.nota3) / 3;
+        card.style.backgroundColor = promedio >= 7 ? 'green' : 'red';
         card.innerHTML = `
-
             <ul>
-                <li><p>${alumno.id}</p></li>
+                <li ><p>${alumno.id}</p></li>
                 <li><h3>${alumno.apellido}</h3></li>
                 <li><h3>${alumno.nombre}</h3></li>
                 <li><p>${alumno.nota1}</p></li>
@@ -45,10 +43,62 @@ function agregarCards(alumnos) {
                 <li><p>${alumno.nota3}</p></li>
                 <li><p>Promedio: ${promedio.toFixed(2)}</p></li>
             </ul>
-        `
+        `;
         alumnosContainer.appendChild(card);
     });
 }
+
+document.getElementById('buscarBtn').addEventListener('click', function() {
+    const busqueda = document.getElementById('buscarAlumno').value.toLowerCase();
+    const resultadosBusqueda = alumnosArray.filter(alumno => 
+        alumno.id.toLowerCase().includes(busqueda) || 
+        alumno.nombre.toLowerCase().includes(busqueda) || 
+        alumno.apellido.toLowerCase().includes(busqueda)
+    );
+    agregarCards(resultadosBusqueda);
+});
+
+document.getElementById('buscarAlumno').addEventListener('keyup', function(event) {
+    if (event.key === 'Enter') {
+        document.getElementById('buscarBtn').click();
+    }
+});
+
+
+
+document.getElementById('formularioAlumno').addEventListener('submit', function(event) {
+    event.preventDefault(); 
+    const id = document.getElementById('id').value;
+    const apellido = document.getElementById('apellido').value;
+    const nombre = document.getElementById('nombre').value;
+    const nota1 = parseFloat(document.getElementById('nota1').value);
+    const nota2 = parseFloat(document.getElementById('nota2').value);
+    const nota3 = parseFloat(document.getElementById('nota3').value);
+
+    const nuevoAlumno = new NotaAlumnos(id, apellido, nombre, nota1, nota2, nota3);
+    alumnosArray.push(nuevoAlumno);
+    alumnosContainer.innerHTML = '';
+    agregarCards(alumnosArray); 
+
+    document.getElementById('formularioAlumno').reset();
+});
+
+
+document.getElementById('buscarBtn').addEventListener('click', function() {
+    const busqueda = document.getElementById('buscarAlumno').value.toLowerCase();
+    const resultadosBusqueda = alumnosArray.filter(alumno => 
+        alumno.id.toLowerCase().includes(busqueda) || 
+        alumno.nombre.toLowerCase().includes(busqueda) || 
+        alumno.apellido.toLowerCase().includes(busqueda));
+    agregarCards(resultadosBusqueda);
+});
+
+document.getElementById('buscarAlumno').addEventListener('keyup', function(event) {
+    if (event.key === 'Enter') {
+        document.getElementById('buscarBtn').click();
+    }
+});
+
 
 agregarCards(alumnosArray);
 
